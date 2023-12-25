@@ -36,3 +36,27 @@ export const uploadOnCloudinary = async (localFilePath) => {
         throw error; // Re-throw the error for handling at a higher level if needed
     }
 };
+
+
+export const deleteFromCloudinary = async (imageUrl) => {
+  try {
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+
+    // Extract public ID from Cloudinary URL
+    const publicId = cloudinary.url(imageUrl).split('/').pop().replace(/\..+$/, '');
+
+    // Delete image from Cloudinary
+    await cloudinary.uploader.destroy(publicId);
+
+    console.log(`Image deleted from Cloudinary: ${publicId}`);
+  } catch (error) {
+    console.error('Error deleting image from Cloudinary:', error.message);
+    // Handle the error accordingly
+  }
+};
+
+module.exports = deleteFromCloudinary;

@@ -5,13 +5,11 @@ import { verifyToken } from "../middleware/auth.middleware.js";
 const userRouter = Router()
 userRouter.route("/register").post(
     upload.fields([
-        {
+        {     
             name: "avatar",
             maxCount: 1
         }
-    ]),
-
-    registerUser)
+    ]),registerUser)
 userRouter.route("/login").post(
     loginUser
 )

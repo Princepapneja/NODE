@@ -106,9 +106,9 @@ export const loginUser = asyncHandler(async (req, res) => {
 
 export const logout = asyncHandler(async (req, res) => {
     try {
-        let user = await User.findByIdAndUpdate(req.user._id, {
+        await User.findByIdAndUpdate(req.user._id, {
             $set: {
-                refreshToken: undefined
+                refreshToken: ""
             }
         }, {
             new: true
@@ -120,7 +120,7 @@ export const logout = asyncHandler(async (req, res) => {
         return res.status(200).clearCookie("accessToken", options).clearCookie("refreshToken", options).json(new ApiResponse(200, {}, "User logged Out"))
 
     } catch (err) {
-        throw new ApiError(500, "Fill the mandatory fields", err.message)
+        throw new ApiError(500, "Something went wrong", err.message)
 
     }
 })

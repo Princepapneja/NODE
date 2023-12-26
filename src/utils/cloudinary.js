@@ -59,4 +59,4 @@ export const deleteFromCloudinary = async (imageUrl) => {
   }
 };
 
-module.exports = deleteFromCloudinary;
+

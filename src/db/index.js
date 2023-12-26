@@ -4,8 +4,7 @@ const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}`, {
       dbName: process.env.DB_NAME,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    
     });
 
     console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
@@ -13,10 +12,7 @@ const connectDB = async () => {
     // If the error is due to the database not existing, create it
     if (error.message.includes("database")) {
       try {
-        const adminConnection = await mongoose.createConnection(`${process.env.MONGODB_URI}`, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        });
+        const adminConnection = await mongoose.createConnection(`${process.env.MONGODB_URI}`);
 
         const adminDb = adminConnection.db;
         await adminDb.createDatabase(process.env.DB_NAME);

@@ -19,3 +19,4 @@ import userRouter from "./routes/user.routes.js"
 
 //routes decelaration 
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/admin", userRouter)
